@@ -17,11 +17,11 @@ const getCategory=()=>axiosClient.get("/department-categories?populate=*")
 
 const getDoctorList=()=>axiosClient.get("/doctors?populate=*")
 
-// const getDoctorbyCategory = ()=> axiosClient.get("/doctors?filters[category][Name]")
+const getDoctorbyCategory = (department)=> axiosClient.get("/doctors?filters[department_category][departmentName][$in]="+department+'&populate=*')
 
 
 export default{
   getCategory,
   getDoctorList,
-  // getDoctorbyCategory
+  getDoctorbyCategory
 }

@@ -14,19 +14,22 @@ import {
     CommandShortcut,
   } from "@/components/ui/command"
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
   
 
 const DepartmentList = () => {
     const [departmentList, setdepartmentList] = useState([]);
+    const params=usePathname();
+    const department = params.split("/")[2];
     useEffect(()=>{
         getDepartmentList()
-
-    })
+        // console.log(department)
+    },[] )
 
 
     const getDepartmentList = () =>{
         GlobalApi.getCategory().then(resp=>{
-            console.log(resp.data.data);
+            // console.log(resp.data.data);
             setdepartmentList(resp.data.data);
         })
 
@@ -34,18 +37,18 @@ const DepartmentList = () => {
 
 
   return (
-    <div className='h-screen fixed mt-5 flex flex-col'>
+    <div className='h-screen mt-5 flex flex-col'>
         <Command>
   <CommandInput placeholder="Type a command or search..." />
   <CommandList className="overflow-visible">
     <CommandEmpty>No results found.</CommandEmpty>
     <CommandGroup heading="Suggestions" >
-        {departmentList&& departmentList.map((item,index)=>(
+        {departmentList.map((item,index)=>(
             <CommandItem key={index}>
-                <Link href={' '}
-                className="p-2 text-[15px] text-blue-600 cursor-pointer w-full">
+                <Link href={'/search/'+item.departmentName}
+                className={`p-2 text-[15px] text-blue-600 cursor-pointer w-full ${department==item.departmentName&& 'bg-blue-100'}`}>
                 <label >
-                    {item.attributes.name}
+                    {item.departmentName}
                 </label>
                 </Link>
 
