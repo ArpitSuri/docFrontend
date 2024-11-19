@@ -1,9 +1,25 @@
 // components/Navbar.js
+
+"use client"
 import Link from 'next/link';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
+import { LoginLink, LogoutLink, useKindeBrowserClient } from '@kinde-oss/kinde-auth-nextjs';
+import React, { createContext, useEffect } from 'react';
+import {
+    Popover,
+    PopoverContent,
+    PopoverTrigger,
+  } from "@/components/ui/popover"
+  
 
 const Navbar = () => {
+
+    const {user} = useKindeBrowserClient();
+
+    useEffect(()=>{
+        console.log(user)
+    })
 
 
     return (
@@ -34,7 +50,28 @@ const Navbar = () => {
                         </Link>
                     </li>
                     <li>
-                        <Button>Login !</Button>
+                        {user ?
+
+                        
+                        <Popover>
+                                <PopoverTrigger><Image src={user?.picture} alt='userProfile'
+                                        width={50} height={50} className='rounded-full'/></PopoverTrigger>
+                                <PopoverContent className="w-32 flex flex-col items-center">
+                                    <ul>
+                                        <li><Button variant="ghost">My Profile</Button></li>
+                                        <li><Button variant="ghost">My Bookings</Button></li>
+                                        <li><LogoutLink><Button variant="ghost">Logout</Button></LogoutLink></li>
+                                    </ul>
+                                </PopoverContent>
+                        </Popover>
+
+                        // <LogoutLink>
+                        //     <Button varient="outline">LogOut !</Button>
+                        // </LogoutLink>
+                        :
+                        <LoginLink>
+                            <Button>Login !</Button>
+                        </LoginLink>}
                     </li>
                 </ul>
 

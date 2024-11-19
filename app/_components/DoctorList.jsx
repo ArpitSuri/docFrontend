@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react'
 import GlobalApi from '../_utils/GlobalApi'
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
+import Link from 'next/link';
 
 const DoctorList = () => {
 
@@ -17,7 +18,7 @@ const DoctorList = () => {
 
     const getDoctorList =() =>{
         GlobalApi.getDoctorList().then(res=>{
-            // console.log(res.data.data)
+            console.log(res.data.data)
             setdoctorList(res.data.data);
         })
     }
@@ -36,7 +37,7 @@ const DoctorList = () => {
               <h2 className='text-[10px] bg-blue-100 rounded px-2'>{item.department_category?.departmentName}</h2>
               <h1>{item.Name}</h1>
               <h2>Years of Experience {item.Year_of_experience}</h2>
-              <Button>Book Now</Button>
+              <Link href={"/details/"+item.id }><Button>Book Now</Button></Link>
             </div>
           </div>
 

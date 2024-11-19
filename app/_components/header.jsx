@@ -1,7 +1,12 @@
+"use client"
+
 import { Button } from '@/components/ui/button'
+import { LoginLink } from '@kinde-oss/kinde-auth-nextjs'
 import { Link } from 'lucide-react'
 import Image from 'next/image'
 import React from 'react'
+// import { LoginLink} from "@kinde-oss/kinde-auth-nextjs/components";
+
 
 const Header = () => {
     const Menu=[
@@ -38,7 +43,9 @@ const Header = () => {
         </ul> */}
         
     </div>
-    <Button>Login</Button>
+    {/* <LoginLink></LoginLink> */}
+    <LoginLink><Button>Login</Button></LoginLink>
+    
 
     </div>
 
